@@ -45,17 +45,17 @@
 	[self toggleFullScreenTimeline];
 }
 
-- (void)accelerometerScrollDetected {
-   static NSUInteger index = 0;
+- (void)accelerometerScrollDetected:(float)coef {
+   static NSUInteger y = 0;
    
-   if (index == [self.tableView numberOfRowsInSection:0]-1)
+   if (y >= self.tableView.contentSize.height) {
       [self autopagerize];
-   else
-      index++;
-   NSUInteger indexes[] = {0, index};
-   NSIndexPath *ip = [NSIndexPath indexPathWithIndexes:indexes length:2];
+      return;
+   } else
+      y += 4 * coef;
 
-   [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionTop animated:YES];
+   CGPoint offset = CGPointMake(0, y);
+   [self.tableView setContentOffset:offset animated:YES];
 }
 
 @end

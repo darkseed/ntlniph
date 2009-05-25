@@ -3,7 +3,7 @@
 @protocol NTLNAccelerometerSensorDelegate 
 
 - (void)accelerometerSensorDetected;
-- (void)accelerometerScrollDetected;
+- (void)accelerometerScrollDetected:(float)coef;
 
 @end
 
