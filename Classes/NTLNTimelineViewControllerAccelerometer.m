@@ -45,4 +45,17 @@
 	[self toggleFullScreenTimeline];
 }
 
+- (void)accelerometerScrollDetected {
+   static NSUInteger index = 0;
+   
+   if (index == [self.tableView numberOfRowsInSection:0]-1)
+      [self autopagerize];
+   else
+      index++;
+   NSUInteger indexes[] = {0, index};
+   NSIndexPath *ip = [NSIndexPath indexPathWithIndexes:indexes length:2];
+
+   [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
 @end

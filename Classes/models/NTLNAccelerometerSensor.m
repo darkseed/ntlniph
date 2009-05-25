@@ -53,6 +53,10 @@ static NTLNAccelerometerSensor *_sharedInstance;
 		[delegate accelerometerSensorDetected];
 		lastFired = now;
 	}
+   
+   if (acceleration.y <= -0.7 && acceleration.y >= -0.8) {
+      [delegate accelerometerScrollDetected];
+   }
 }
 
 - (void)updateByConfiguration {
