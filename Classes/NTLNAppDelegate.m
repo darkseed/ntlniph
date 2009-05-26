@@ -14,6 +14,12 @@
 #import "GTMRegex.h"
 #import "NTLNTwitterPost.h"
 
+@implementation UITabBarController(EnableRotate)
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return ((interfaceOrientation == UIInterfaceOrientationPortrait) || (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown));
+}
+@end
+
 @implementation NTLNAppDelegate
 
 @synthesize window;
