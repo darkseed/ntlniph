@@ -46,15 +46,12 @@
 }
 
 - (void)accelerometerScrollDetected:(float)coef {
-   static NSUInteger y = 0;
-   
-   if (y >= self.tableView.contentSize.height) {
+   if (self.tableView.contentOffset.y >= self.tableView.contentSize.height) {
       [self autopagerize];
       return;
-   } else
-      y += 4 * coef;
+   }
 
-   CGPoint offset = CGPointMake(0, y);
+   CGPoint offset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y + 30 * coef);
    [self.tableView setContentOffset:offset animated:YES];
 }
 
