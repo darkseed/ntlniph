@@ -15,6 +15,8 @@
 - (BOOL)isCallbackURL:(NSURL*)url;
 - (void)accessToken:(NSURL*)callbackUrl;
 
+- (void)xAuthAccessToken;
+
 @end
 
 #endif

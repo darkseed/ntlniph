@@ -88,6 +88,35 @@ GTMOBJECT_SINGLETON_BOILERPLATE(NTLNOAuthConsumer, sharedInstance)
 }
 
 
+- (void)xAuthAccessToken {
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
+	
+    OAMutableURLRequest *request = [[[OAMutableURLRequest alloc] initWithURL:url
+																	consumer:[self consumer]
+																	   token:nil   // we don't have a Token yet
+																	   realm:nil   // our service provider doesn't specify a realm
+														   signatureProvider:nil]  // use the default method, HMAC-SHA1
+									autorelease]; 
+	
+    [request setHTTPMethod:@"POST"];
+	
+	NSString *username = [[NTLNAccount sharedInstance] screenName];
+	NSString *password = [[NTLNAccount sharedInstance] password];
+	
+	[request setParameters:[NSArray arrayWithObjects:
+							[OARequestParameter requestParameterWithName:@"x_auth_mode" value:@"client_auth"],
+							[OARequestParameter requestParameterWithName:@"x_auth_username" value:username],
+							[OARequestParameter requestParameterWithName:@"x_auth_password" value:password],
+							nil]];
+	
+    OADataFetcher *fetcher = [[[OADataFetcher alloc] init] autorelease];
+	
+	 [fetcher fetchDataWithRequest:request
+						  delegate:self
+				 didFinishSelector:@selector(accessTokenTicket:didFinishWithData:)
+				   didFailSelector:@selector(accessTokenTicket:didFailWithError:)];
+}
+
 #pragma mark Private
 
 - (void)dealloc {

@@ -2,6 +2,9 @@
 #import "NTLNConfigurationKeys.h"
 #import "NTLNAccount.h"
 #import "UICTableViewCellTextInput.h"
+#ifdef ENABLE_XAUTH
+#import "NTLNOAuthConsumer.h"
+#endif
 
 @interface NTLNTwitterAccountViewController(Private)
 - (void)setupPrototypes;
@@ -78,6 +81,9 @@
 	[self resignFirstResponderForCell:[NSIndexPath indexPathForRow:1 inSection:0]];
 	
 	[[NTLNAccount sharedInstance] update];
+#ifdef ENABLE_XAUTH
+	[[NTLNOAuthConsumer sharedInstance] xAuthAccessToken];
+#endif
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

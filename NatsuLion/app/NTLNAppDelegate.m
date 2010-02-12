@@ -134,7 +134,11 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 
-#ifdef ENABLE_OAUTH	
+#ifdef ENABLE_XAUTH	
+	if (![[NTLNAccount sharedInstance] valid]) {		
+		[self presentTwitterAccountSettingView];
+	}	
+#elif defined(ENABLE_OAUTH)
 	if (! [[NTLNAccount sharedInstance] waitForOAuthCallback] && 
 		! [[NTLNAccount sharedInstance] valid]) {
 		[[NTLNOAuthConsumer sharedInstance] requestToken:tabBarController];

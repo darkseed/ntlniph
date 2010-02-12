@@ -122,7 +122,9 @@
 
 	// for "Twitter account" cell
 	if ([indexPath section] == 0 && [indexPath row] == 0) {
-#ifdef ENABLE_OAUTH
+#ifdef ENABLE_XAUTH
+		[(NTLNAppDelegate*)[UIApplication sharedApplication].delegate presentTwitterAccountSettingView];
+#elif defined(ENABLE_OAUTH)
 		[[NTLNOAuthConsumer sharedInstance] requestToken:self.tabBarController];
 #else
 		[(NTLNAppDelegate*)[UIApplication sharedApplication].delegate presentTwitterAccountSettingView];
