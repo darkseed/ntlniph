@@ -105,8 +105,8 @@ GTMOBJECT_SINGLETON_BOILERPLATE(NTLNOAuthConsumer, sharedInstance)
 	
 	[request setParameters:[NSArray arrayWithObjects:
 							[OARequestParameter requestParameterWithName:@"x_auth_mode" value:@"client_auth"],
-							[OARequestParameter requestParameterWithName:@"x_auth_username" value:[username URLEncodedString]],
-							[OARequestParameter requestParameterWithName:@"x_auth_password" value:[password URLEncodedString]],
+							[OARequestParameter requestParameterWithName:@"x_auth_username" value:username],
+							[OARequestParameter requestParameterWithName:@"x_auth_password" value:password],
 							nil]];
 	
     OADataFetcher *fetcher = [[[OADataFetcher alloc] init] autorelease];
